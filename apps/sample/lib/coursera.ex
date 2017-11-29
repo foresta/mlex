@@ -13,7 +13,7 @@ defmodule Coursera do
 
       m = length(x)
       
-      # バイアス項を追加
+      # add bias parametter
       x = [ for times <- 1..m do 1 end | [x]]
       x = Matrix.transpose(x)
 

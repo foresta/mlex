@@ -17,7 +17,8 @@ defmodule Mlex.Mixfile do
   defp deps do
     [
       {:matrix, "~> 0.3.0"},
-      {:csv, "~> 2.0.0"}
+      {:csv, "~> 2.0.0"},
+      {:explotter, git: "https://github.com/foresta/explotter.git"}
     ]
   end
 end
