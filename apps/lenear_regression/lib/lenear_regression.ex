@@ -25,21 +25,40 @@ defmodule LenearRegression do
 
   defp _gradientDescent(x, y, theta, alpha, max_iter, iter) do
     m = length(y)
-    
+  
+    prevTheta = theta
+
     # X' * (X * theta - y)
     d = Matrix.mult(Matrix.transpose(x), Matrix.sub(Matrix.mult(x, theta), y))
     size = Matrix.size(d)
 
     # alpha * (1 / m)
     a = Matrix.new(elem(size,0), elem(size,1), alpha * (1 / m))
-      
+
     # alpha * (1 / m) * X' * (X * theta - y)
     d = Matrix.emult(d, a)
 
     # theta = theta - alpha * (1/m) * X' * (X * theta - y)
     theta = Matrix.sub(theta, d)
 
+    IO.puts "-------------------------"
+    IO.puts "[prevTheta]"
+    IO.inspect prevTheta
+
+    IO.puts "[adjust term]"
+    IO.inspect d 
+
+    IO.puts "[theta]"
+    IO.inspect theta
+
+    IO.puts "[cost]"
+    IO.inspect computeCost(x, y, theta)
+
     _gradientDescent(x, y, theta, alpha, max_iter, iter + 1)
+  end
+
+  def predict(x, theta) do
+    Matrix.mult(x, theta)
   end
 
 end

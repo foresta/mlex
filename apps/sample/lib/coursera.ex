@@ -2,10 +2,17 @@ defmodule Coursera do
 
     def ex1 do
 
-      data = DatasetLoader.load("apps/sample/dataset/coursera/ex1/ex1data1.txt")
+      filename = "apps/sample/dataset/coursera/ex1/ex1data1.txt"
+      data = DatasetLoader.load(filename)
       
-      raw_x = data |> Enum.map(fn x -> Enum.at(x, 0) end) |> Enum.to_list
-      raw_y = data |> Enum.map(fn y -> Enum.at(y, 1) end) |> Enum.to_list
+      raw_x = data 
+              |> Enum.map(fn x -> Enum.at(x, 0) end)
+              |> Enum.map(fn x -> elem(Float.parse(x), 0) end)
+              |> Enum.to_list
+      raw_y = data 
+              |> Enum.map(fn y -> Enum.at(y, 1) end) 
+              |> Enum.map(fn y -> elem(Float.parse(y), 0) end)
+              |> Enum.to_list
 
       m = length(raw_x)
       
