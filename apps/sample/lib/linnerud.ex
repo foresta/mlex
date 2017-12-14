@@ -16,9 +16,11 @@ defmodule Linnerud do
 
   """
   def run do
-    features = load_linnerud_feature_dataset
-    targets = load_linnerud_target_dataset
+    # load dataset
+    features = load_linnerud_feature_dataset()
+    targets = load_linnerud_target_dataset()
 
+    # setup features
     pulses = features[:pulse]
     waists = features[:waist]
     weights = features[:weight]
@@ -28,20 +30,30 @@ defmodule Linnerud do
     x = [bias, weights, waists, pulses]
     x = Matrix.transpose(x)
 
+    # setup targets
     y = [ targets[:chins] ]
     y = Matrix.transpose(y) 
 
+    # setup gradientDescent params
     alpha = 0.00003
     iterations = 10000
     theta = [[0], [0], [0], [0]]
 
+    # train
     theta = LenearRegression.gradientDescent(x, y, theta, alpha, iterations)
   
-    x_test = [[1],[191],[36],[50]]
-    
-    predicted_chins = LenearRegression.predict(Matrix.transpose(x_test), theta)
+    x_test = Matrix.transpose([[1],[191],[36],[50]])
+    y_test = [[5]] 
 
+    # predict
+    predicted_chins = LenearRegression.predict(x_test, theta)
+
+    # computeCost
+    error = LenearRegression.computeCost(x_test, y_test, theta)
+
+    IO.inspect y_test
     IO.inspect predicted_chins
+    IO.inspect error
   end
 
 
@@ -59,8 +71,8 @@ defmodule Linnerud do
     jumps
   """
   def run_polynomial do
-    features = load_linnerud_feature_dataset
-    targets  = load_linnerud_target_dataset
+    features = load_linnerud_feature_dataset()
+    targets  = load_linnerud_target_dataset()
 
     pulses = features[:pulse]
     waists = features[:waist]
@@ -104,8 +116,8 @@ defmodule Linnerud do
   plot dataset
   """
   def plot do
-    features = load_linnerud_feature_dataset
-    targets = load_linnerud_target_dataset
+    features = load_linnerud_feature_dataset()
+    targets = load_linnerud_target_dataset()
 
     plot_datasets(features, targets)
   end

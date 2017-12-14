@@ -27,8 +27,6 @@ defmodule LenearRegression do
   defp _gradientDescent(x, y, theta, alpha, max_iter, iter) do
     m = length(y)
   
-    prevTheta = theta
-
     # X' * (X * theta - y)
     d = Matrix.mult(Matrix.transpose(x), Matrix.sub(Matrix.mult(x, theta), y))
     size = Matrix.size(d)
