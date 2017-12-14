@@ -6,8 +6,9 @@ defmodule LenearRegression do
   def computeCost(x, y, theta) do
     m = length(y)
 
-    hx = Matrix.mult(x, theta)
-    hx_y = Matrix.sub(hx, y) 
+    hx_y = x 
+    |> Matrix.mult(theta)
+    |> Matrix.sub(y)
     hx_y_2 = Matrix.emult(hx_y, hx_y)
     sum = hx_y_2
     |> Enum.reduce(0, fn(x, acc) -> Enum.at(x,0) + acc end)
@@ -40,19 +41,6 @@ defmodule LenearRegression do
 
     # theta = theta - alpha * (1/m) * X' * (X * theta - y)
     theta = Matrix.sub(theta, d)
-
-    IO.puts "-------------------------"
-    IO.puts "[prevTheta]"
-    IO.inspect prevTheta
-
-    IO.puts "[adjust term]"
-    IO.inspect d 
-
-    IO.puts "[theta]"
-    IO.inspect theta
-
-    IO.puts "[cost]"
-    IO.inspect computeCost(x, y, theta)
 
     _gradientDescent(x, y, theta, alpha, max_iter, iter + 1)
   end

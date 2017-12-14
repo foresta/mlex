@@ -1,15 +1,21 @@
-defmodule LenearRegressionSample do
+defmodule Linnerud do
 
-  def linnerud do
-    # features: physiological data 
-    #   weight
-    #   waist
-    #   pulse
-    #
-    # targets: exersize data
-    #   chins
-    #   situps
-    #   jumps
+  @doc """
+  Lenear Regression with linnerud datasets
+  
+  features: physiological data 
+    weight
+    waist
+    pulse
+  
+  targets: exersize data
+    chins
+    situps
+    jumps
+
+
+  """
+  def run do
     features = load_linnerud_feature_dataset
     targets = load_linnerud_target_dataset
 
@@ -31,9 +37,6 @@ defmodule LenearRegressionSample do
 
     theta = LenearRegression.gradientDescent(x, y, theta, alpha, iterations)
   
-    test_weight = 191
-    test_waist  = 36
-    test_pulse  = 50
     x_test = [[1],[191],[36],[50]]
     
     predicted_chins = LenearRegression.predict(Matrix.transpose(x_test), theta)
@@ -42,7 +45,20 @@ defmodule LenearRegressionSample do
   end
 
 
-  def linnerud_polynomial do
+  @doc """
+  Polynomial Lenear Regression with linnerud datasets
+  
+  features: physiological data 
+    weight
+    waist
+    pulse
+  
+  targets: exersize data
+    chins
+    situps
+    jumps
+  """
+  def run_polynomial do
     features = load_linnerud_feature_dataset
     targets  = load_linnerud_target_dataset
 
@@ -84,6 +100,9 @@ defmodule LenearRegressionSample do
     IO.inspect predicted_chins
   end
 
+  @doc """
+  plot dataset
+  """
   def plot do
     features = load_linnerud_feature_dataset
     targets = load_linnerud_target_dataset
@@ -94,20 +113,8 @@ defmodule LenearRegressionSample do
   defp plot_datasets(features, target) do
     plotter = Explotter.new
     Explotter.plot(plotter, features[:weight], target[:chins], :ro, [label: "weight and chins"])
-    Explotter.plot(plotter, features[:weight], target[:jumps], :go, [label: "weight and jumps"])
-    Explotter.plot(plotter, features[:weight], target[:situps], :bo, [label: "weight and situps"])
-    Explotter.show(plotter)
- 
-    plotter = Explotter.new
     Explotter.plot(plotter, features[:waist], target[:chins], :ro, [label: "waist and chins"])
-    Explotter.plot(plotter, features[:waist], target[:jumps], :go, [label: "waist and jumps"])
-    Explotter.plot(plotter, features[:waist], target[:situps], :bo, [label: "waist and situps"])
-    Explotter.show(plotter)
- 
-    plotter = Explotter.new
     Explotter.plot(plotter, features[:pulse], target[:chins], :ro, [label: "pulse and chins"])
-    Explotter.plot(plotter, features[:pulse], target[:jumps], :go, [label: "pulse and jumps"])
-    Explotter.plot(plotter, features[:pulse], target[:situps], :bo, [label: "pulse and situps"])
     Explotter.show(plotter)
  
   end
@@ -137,25 +144,5 @@ defmodule LenearRegressionSample do
                           } end)
   end
 
-  def iris do
-    data = load_iris_data
- 
-    # species label to number
-    labels = data["species"]
-  end
-
-  defp load_iris_data do
-    filepath = "apps/sample/dataset/sample_data/iris.csv"
-    data = DatasetLoader.load(filepath, [headers: true])
-
-    # TODO::accept any keys
-    sepal_lengths = data |> Enum.map(fn x -> x["sepal_length"] end)
-    sepal_widths  = data |> Enum.map(fn x -> x["sepal_width"] end)
-    petal_lengths = data |> Enum.map(fn x -> x["petal_length"] end)
-    petal_widths  = data |> Enum.map(fn x -> x["petal_width"] end)
-    species       = data |> Enum.map(fn x -> x["species"] end)
-
-    [sepal_length: sepal_lengths, sepal_width: sepal_widths, petal_length: petal_lengths, petal_width: petal_widths, species: species]
-  end
 
 end

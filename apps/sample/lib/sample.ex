@@ -18,7 +18,7 @@ defmodule Sample do
   end
 
   @doc """
-  plot with expyplot
+  plot with explotter
   """
   def plot1 do
     
