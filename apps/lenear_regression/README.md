@@ -1,6 +1,6 @@
 # LenearRegression
 
-**TODO: Add description**
+LenearRegression with Elixir.
 
 ## Installation
 

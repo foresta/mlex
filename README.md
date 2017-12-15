@@ -1,4 +1,7 @@
 # Mlex
 
-**TODO: Add description**
+Machine learning with Elixir.
 
+Implemented:
+
+* LenearRegression

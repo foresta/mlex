@@ -12,8 +12,6 @@ defmodule Linnerud do
     chins
     situps
     jumps
-
-
   """
   def run do
     # load dataset
@@ -51,8 +49,16 @@ defmodule Linnerud do
     # computeCost
     error = LenearRegression.computeCost(x_test, y_test, theta)
 
+    IO.puts "====== test data ====="
+    IO.puts "x: "
+    IO.inspect x_test
+    IO.puts "y: "
     IO.inspect y_test
+
+    IO.puts "===== pridiction ====="
     IO.inspect predicted_chins
+    
+    IO.puts "error: "
     IO.inspect error
   end
 

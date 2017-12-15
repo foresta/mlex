@@ -3,6 +3,10 @@ defmodule LenearRegression do
   Documentation for LenearRegression.
   """
 
+  def predict(x, theta) do
+    Matrix.mult(x, theta)
+  end
+
   def computeCost(x, y, theta) do
     m = length(y)
 
@@ -41,10 +45,6 @@ defmodule LenearRegression do
     theta = Matrix.sub(theta, d)
 
     _gradientDescent(x, y, theta, alpha, max_iter, iter + 1)
-  end
-
-  def predict(x, theta) do
-    Matrix.mult(x, theta)
   end
 
 end
